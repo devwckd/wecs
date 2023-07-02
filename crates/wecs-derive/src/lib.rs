@@ -9,7 +9,7 @@ pub fn component(input: TokenStream) -> TokenStream {
     let generics = token_stream.generics.clone();
 
     let impl_tokens = quote! {
-        impl #generics ::wecs_core::component::Component for #ident #generics {}
+        impl #generics ::wecs::component::Component for #ident #generics {}
     };
 
     TokenStream::from(impl_tokens)
@@ -22,7 +22,7 @@ pub fn resource(input: TokenStream) -> TokenStream {
     let generics = token_stream.generics.clone();
 
     quote! {
-        impl #generics ::wecs_core::resource::Resource for #ident #generics { }
+        impl #generics ::wecs::resource::Resource for #ident #generics { }
     }
     .into()
 }
