@@ -1,0 +1,11 @@
+[package]
+name = "wecs-core"
+description = "core of the wecs package"
+version = { workspace = true }
+license = { workspace = true }
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+wecs-derive = { workspace = true }

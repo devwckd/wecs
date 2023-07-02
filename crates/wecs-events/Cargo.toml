@@ -1,0 +1,12 @@
+[package]
+name = "wecs-events"
+description = "events of the wecs package"
+version = { workspace = true }
+license = { workspace = true }
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+wecs-core = { workspace = true }
+wecs-derive = { workspace = true }

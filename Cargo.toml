@@ -1,0 +1,37 @@
+[package]
+name = "wecs"
+version = { workspace = true}
+license = { workspace = true }
+edition = "2021"
+description = "A simple ECS lib for general use"
+repository = "https://github.com/devwckd/wecs"
+readme = "README.md"
+
+[workspace]
+members = [
+    "crates/wecs-core",
+    "crates/wecs-derive",
+    "crates/wecs-events"
+]
+
+[workspace.package]
+version = "0.1.0"
+license = "MIT OR Apache-2.0"
+
+[workspace.dependencies]
+wecs-core = { path = "crates/wecs-core", version = "0.1.0" }
+wecs-derive = { path = "crates/wecs-derive", version = "0.1.0" }
+wecs-events = { path = "crates/wecs-events", version = "0.1.0" }
+
+quote = "1.0.28"
+syn = "2.0.17"
+
+[dependencies]
+wecs-core = { workspace = true }
+wecs-derive = { workspace = true, optional = true }
+wecs-events = { workspace = true, optional = true }
+
+[features]
+default = ["derive", "events"]
+events = ["dep:wecs-events"]
+derive = ["dep:wecs-derive"]

@@ -1,0 +1,13 @@
+[package]
+name = "wecs-derive"
+description = "proc macros of the wecs package"
+version = { workspace = true }
+license = { workspace = true }
+edition = "2021"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+syn = { workspace = true, features = ["full"] }
+quote =  { workspace = true }
