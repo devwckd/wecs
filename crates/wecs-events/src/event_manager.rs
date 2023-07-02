@@ -1,12 +1,13 @@
 use wecs_core::resource::ResMut;
 
-#[derive(wecs_derive::Resource)]
 pub struct EventManager<E>
 where
     E: 'static,
 {
     pub(crate) events: Vec<E>,
 }
+
+impl<E> wecs_core::resource::Resource for EventManager<E> where E: 'static {}
 
 impl<E> Default for EventManager<E>
 where
