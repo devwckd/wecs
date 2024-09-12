@@ -54,22 +54,24 @@ impl Resources {
         ResourceId(*index)
     }
 
-    pub fn remove<R>(&mut self)
+    pub fn remove<R>(&mut self) -> Option<R>
     where
         R: Resource + 'static,
     {
         let type_id = TypeId::of::<R>();
 
         if let Some(index) = self.id_mappings.remove(&type_id) {
-            self.data.remove(index);
+            return Some(self.data.remove(index).resource.downcast::<R>().expect(""));
         };
+
+        None
     }
 
     pub fn get<R>(&self) -> Option<&R>
     where
         R: Resource + 'static,
     {
-        return if let Some(index) = self.id_mappings.get(&TypeId::of::<R>()) {
+        if let Some(index) = self.id_mappings.get(&TypeId::of::<R>()) {
             self.data.get(*index).map(|data| {
                 data.resource
                     .downcast_ref::<R>()
@@ -77,14 +79,14 @@ impl Resources {
             })
         } else {
             None
-        };
+        }
     }
 
     pub fn get_or_init<R>(&mut self) -> Option<&R>
     where
         R: Resource + Default + 'static,
     {
-        return if let Some(index) = self.id_mappings.get(&TypeId::of::<R>()) {
+        if let Some(index) = self.id_mappings.get(&TypeId::of::<R>()) {
             self.data.get(*index).map(|data| {
                 data.resource
                     .downcast_ref::<R>()
@@ -93,14 +95,14 @@ impl Resources {
         } else {
             self.init::<R>();
             self.get::<R>()
-        };
+        }
     }
 
     pub fn get_mut<R>(&mut self) -> Option<&mut R>
     where
         R: Resource + 'static,
     {
-        return if let Some(index) = self.id_mappings.get(&TypeId::of::<R>()) {
+        if let Some(index) = self.id_mappings.get(&TypeId::of::<R>()) {
             self.data.get_mut(*index).map(|data| {
                 data.resource
                     .downcast_mut::<R>()
@@ -108,14 +110,14 @@ impl Resources {
             })
         } else {
             None
-        };
+        }
     }
 
     pub fn get_or_init_mut<R>(&mut self) -> Option<&mut R>
     where
         R: Resource + Default + 'static,
     {
-        return if let Some(index) = self.id_mappings.get(&TypeId::of::<R>()) {
+        if let Some(index) = self.id_mappings.get(&TypeId::of::<R>()) {
             self.data.get_mut(*index).map(|data| {
                 data.resource
                     .downcast_mut::<R>()
@@ -124,6 +126,6 @@ impl Resources {
         } else {
             self.init::<R>();
             self.get_mut::<R>()
-        };
+        }
     }
 }
