@@ -22,7 +22,10 @@ where
     }
 }
 
-impl<E> EventDispatcher<E> for &mut World {
+impl<E> EventDispatcher<E> for &mut World
+where
+    E: 'static,
+{
     fn dispatch_one(&mut self, event: E) {
         if let Some(manager) = self.get_resource_mut::<EventManager<E>>() {
             manager.events.push(event)

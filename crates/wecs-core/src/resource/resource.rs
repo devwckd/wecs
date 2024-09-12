@@ -61,7 +61,7 @@ impl Resources {
         let type_id = TypeId::of::<R>();
 
         if let Some(index) = self.id_mappings.remove(&type_id) {
-            return Some(self.data.remove(index).resource.downcast::<R>().expect(""));
+            return Some(*self.data.remove(index).resource.downcast::<R>().expect("internal resource error"));
         };
 
         None

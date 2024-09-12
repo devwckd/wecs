@@ -68,7 +68,7 @@ impl World {
     }
 
     #[inline]
-    pub fn remove_resource<R>(&mut self) -> R
+    pub fn remove_resource<R>(&mut self) -> Option<R>
     where
         R: Resource + 'static,
     {
